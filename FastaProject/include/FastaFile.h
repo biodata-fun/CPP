@@ -1,5 +1,6 @@
 // FastaFile.h
 #include <iostream>
+#include "Fasta.h"
 #ifndef FASTAFILE_H
 #define FASTAFILE_H
 
@@ -12,6 +13,8 @@ class FastaFile
         FastaFile(string apath);
         ~FastaFile();
         void setSeqNumber(); // Class member function initialization
+        vector<string> getIds();
+        void getFasta(string id);
     private: string path;
 };
 
