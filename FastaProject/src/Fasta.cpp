@@ -7,10 +7,11 @@ using namespace std;
 
 Fasta::Fasta(string anid, string aseq)
 {
-    path = apath;
+    id = anid;
+    seq = aseq;
 }
 
-FastaFile::~FastaFile() 
+Fasta::~Fasta()
 {
 
 }

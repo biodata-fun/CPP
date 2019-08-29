@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/ernesto/lib/CPP/FastaProject/src/Fasta.h
+iostream
+-
+
+/Users/ernesto/lib/CPP/FastaProject/src/FastaFile.h
+iostream
+-
+Fasta.h
+/Users/ernesto/lib/CPP/FastaProject/src/Fasta.h
+
+/Users/ernesto/lib/CPP/FastaProject/src/main.cpp
+FastaFile.h
+/Users/ernesto/lib/CPP/FastaProject/src/FastaFile.h
+iostream
+-
+fstream
+-
+vector
+-
+boost/algorithm/string.hpp
+-
+

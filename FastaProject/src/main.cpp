@@ -8,14 +8,18 @@ using namespace std;
 
 int main()
 {
-    string example="test.fa";
+    string example="/Users/ernesto/lib/CPP/FastaProject/src/test.fa";
     FastaFile f(example);
     f.setSeqNumber();
-    cout << f.seqnumber <<endl;
-    vector<string> ids;
-    ids=f.getIds();
-    for (int i = 0; i<ids.size(); i++) {
-		std::cout << ids.at(i) << std::endl;
-	}
+    //cout << f.seqnumber <<endl;
+    //vector<string> ids;
+    //ids=f.getIds();
+    //for (int i = 0; i<ids.size(); i++) {
+	//	std::cout << ids.at(i) << std::endl;
+	//}
+    // testing getFasta function
+    Fasta af= f.getFasta("seq1");
+    std::cout << "Id:" << af.id << endl;
+    std::cout << "Seq:" << af.seq << endl;
     return 0;
 }

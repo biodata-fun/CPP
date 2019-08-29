@@ -8,10 +8,11 @@ using namespace std;
 class Fasta
 {
     public:
-        Fasta(string anid, string aseq);
+        int seqnumber;
+        Fasta(string id, string seq);
         ~Fasta();
-    private: string id;
-    private: string seq;
+        string id;
+        string seq;
 };
 
 #endif /* FASTA_H */ 

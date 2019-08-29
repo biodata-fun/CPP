@@ -68,10 +68,12 @@ vector<string> FastaFile::getIds()
 /**
  * Get a Fasta object using its id.
  */
-void FastaFile::getFasta(string id)
+Fasta FastaFile::getFasta(string id)
 {
     ifstream file (path);
     string line;
+    bool id_seen = false;
+    string seq;
     if (file.is_open())
     {
         while ( getline (file,line) )
@@ -82,10 +84,18 @@ void FastaFile::getFasta(string id)
             {
                 string this_id;
                 this_id=line.substr(1);
-                if (id.compare(this_id) == 0) {
-                    cout<< "Found it!" << endl;
+                if (id.compare(this_id) == 0 && id_seen == false) {
+                    id_seen=true;
+                    continue;
+                } else if (id_seen == true) {
+                    Fasta f(id,seq);
+                    return f;
+                    break;
                 }
-
+            } else {
+                if (id_seen==true) {
+                    seq += line;
+                }
             }
         }
         file.close();
