@@ -19,7 +19,10 @@ int main()
 	//}
     // testing getFasta function
     Fasta af= f.getFasta("seq1");
-    std::cout << "Id:" << af.id << endl;
-    std::cout << "Seq:" << af.seq << endl;
+    //std::cout << "Id:" << af.id << endl;
+    //std::cout << "Seq:" << af.seq << endl;
+    Counts cts;
+    cts=af.getNtcounts();
     return 0;
 }
+

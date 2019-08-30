@@ -5,6 +5,15 @@
 
 using namespace std;
 
+struct Counts
+{
+    string id;
+    int A;
+    int C;
+    int T;
+    int G;
+};
+
 class Fasta
 {
     public:
@@ -13,6 +22,7 @@ class Fasta
         ~Fasta();
         string id;
         string seq;
+        Counts getNtcounts();
 };
 
 #endif /* FASTA_H */ 

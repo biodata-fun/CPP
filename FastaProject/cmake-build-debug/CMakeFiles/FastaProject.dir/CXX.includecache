@@ -6,8 +6,30 @@
 
 #IncludeRegexTransform: 
 
+/Users/ernesto/lib/CPP/FastaProject/src/Fasta.cpp
+iostream
+-
+fstream
+-
+vector
+-
+Fasta.h
+/Users/ernesto/lib/CPP/FastaProject/src/Fasta.h
+
 /Users/ernesto/lib/CPP/FastaProject/src/Fasta.h
 iostream
+-
+
+/Users/ernesto/lib/CPP/FastaProject/src/FastaFile.cpp
+iostream
+-
+fstream
+-
+vector
+-
+FastaFile.h
+/Users/ernesto/lib/CPP/FastaProject/src/FastaFile.h
+boost/algorithm/string.hpp
 -
 
 /Users/ernesto/lib/CPP/FastaProject/src/FastaFile.h
