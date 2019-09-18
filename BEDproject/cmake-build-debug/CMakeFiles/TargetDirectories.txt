@@ -1,0 +1,3 @@
+/Users/ernesto/lib/CPP/BEDproject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/ernesto/lib/CPP/BEDproject/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/ernesto/lib/CPP/BEDproject/cmake-build-debug/CMakeFiles/BEDfile.dir

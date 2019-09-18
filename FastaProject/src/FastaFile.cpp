@@ -101,6 +101,5 @@ Fasta FastaFile::getFasta(string id)
         file.close();
     }
     else cout << "Unable to open file";
-
 }
 

@@ -6,16 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/ernesto/lib/CPP/FastaProject/src/Fasta.cpp
-iostream
--
-fstream
--
-vector
--
-Fasta.h
-/Users/ernesto/lib/CPP/FastaProject/src/Fasta.h
-
 /Users/ernesto/lib/CPP/FastaProject/src/Fasta.h
 iostream
 -

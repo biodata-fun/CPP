@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/ernesto/lib/CPP/BEDproject/main.cpp
+iostream
+-
+src/BEDfile.h
+/Users/ernesto/lib/CPP/BEDproject/src/BEDfile.h
+
+/Users/ernesto/lib/CPP/BEDproject/src/BEDfile.cpp
+BEDfile.h
+/Users/ernesto/lib/CPP/BEDproject/src/BEDfile.h
+
+/Users/ernesto/lib/CPP/BEDproject/src/BEDfile.h
+iostream
+-
+
