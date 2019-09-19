@@ -13,7 +13,8 @@ class BEDFile
     public:
         BEDFile(string apath);
         ~BEDFile();
-        void getFeatNumber(); // Class member function initialization
+        int getFeatNumber(); // Class member function initialization
+        void getNumBasesInFeats();
     private: string path;
 };
 
