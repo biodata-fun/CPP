@@ -3,7 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <boost/algorithm/string.hpp>
- 
+
 using namespace std;
 
 int main()

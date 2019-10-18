@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/app_demo.dir/src/main.cpp.o  -o app_demo /usr/local/lib/libboost_iostreams.dylib libvcfparser.a 

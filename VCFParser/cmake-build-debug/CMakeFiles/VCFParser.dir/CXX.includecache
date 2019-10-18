@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/VCFReader.h
+
+/Users/ernesto/lib/CPP/VCFParser/src/VCFReader.cpp
+fstream
+-
+iostream
+-
+boost/iostreams/filtering_streambuf.hpp
+-
+boost/iostreams/filter/gzip.hpp
+-
+VCFReader.h
+-
+
