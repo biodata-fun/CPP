@@ -7,6 +7,8 @@
 #IncludeRegexTransform: 
 
 ../include/VCFReader.h
+vector
+-
 
 /Users/ernesto/lib/CPP/VCFParser/src/VCFReader.cpp
 fstream
@@ -16,6 +18,10 @@ iostream
 boost/iostreams/filtering_streambuf.hpp
 -
 boost/iostreams/filter/gzip.hpp
+-
+boost/algorithm/string.hpp
+-
+sstream
 -
 VCFReader.h
 -

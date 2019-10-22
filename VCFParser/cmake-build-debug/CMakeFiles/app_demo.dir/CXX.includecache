@@ -7,6 +7,8 @@
 #IncludeRegexTransform: 
 
 ../include/VCFReader.h
+vector
+-
 
 /Users/ernesto/lib/CPP/VCFParser/src/main.cpp
 iostream

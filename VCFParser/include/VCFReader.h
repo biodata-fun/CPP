@@ -5,16 +5,30 @@
 #ifndef VCFPARSER_VCFREADER_H
 #define VCFPARSER_VCFREADER_H
 
+#include <vector>
+
 using namespace std;
+
+struct Variant
+{
+    basic_string<char> chr;
+    int pos;
+    std::string ref;
+    std::string alt;
+    std::string type;
+};
 
 class VCFReader
 {
     public:
-        void stats(); // Class member function initialization
+        // Class member function initialization
+        void stats();
         VCFReader(string apath);
-        ~VCFReader();
-    private: string path;
+    ~VCFReader();
+    private:
+        string path;
+        vector<struct Variant> get_variants();
+        vector<struct Variant> vt_array;
 };
-
 
 #endif //VCFPARSER_VCFREADER_H
