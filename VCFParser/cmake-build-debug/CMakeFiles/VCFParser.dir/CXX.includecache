@@ -21,8 +21,10 @@ boost/iostreams/filter/gzip.hpp
 -
 boost/algorithm/string.hpp
 -
-sstream
--
 VCFReader.h
+-
+regex
+-
+map
 -
 

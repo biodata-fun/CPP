@@ -6,8 +6,9 @@
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/algorithm/string.hpp>
-#include <sstream>
 #include <VCFReader.h>
+#include <regex>
+#include <map>
 
 using namespace std;
 
@@ -60,14 +61,29 @@ vector<Variant> VCFReader::get_variants() {
             geek >> pos;
             std::string ref = strs[3];
             std::string alt = strs[4];
-            std::string type;
-            if (alt.length()!= ref.length()) {
-                  type="indels";
-            } else {
-                  type="snps";
+
+            // Check if there is more than 1 comma-separated allele.
+
+            regex b(".*,.*");
+
+            vector<string> altAlls;
+            // regex_match function matches string a against regex b
+            if ( regex_match(alt, b) )
+                boost::split(altAlls,alt,boost::is_any_of(","));
+            else {
+                altAlls.push_back(alt);
             }
-            Variant vt={strs[0],pos,ref,alt,type};
-            vt_array.push_back(vt);
+
+            for (size_t i = 0; i < altAlls.size(); i++) {
+                std::string type;
+                if (altAlls[i].length() != ref.length()) {
+                    type = "indels";
+                } else {
+                    type = "snps";
+                }
+                Variant vt = {strs[0], pos, ref, altAlls[i], type};
+                vt_array.push_back(vt);
+            }
         }
     }
     return vt_array;
@@ -78,22 +94,45 @@ vector<Variant> VCFReader::get_variants() {
  */
 void VCFReader::stats()
 {
-            // guess what type of variant is this one
-          //  if (alt.length()!= ref.length()) {
-          //      no_indels+=1;
-          //  } else {
-          //      no_snps+=1;
-          //  }
-//            std::cout << "* size of the vector: " << strs.size() << endl;
-//            for (size_t i = 0; i < strs.size(); i++)
-//                std::cout << strs[i] << endl;
-//        }
-//    }
-    // Print report
-//    std::cout << "##Stats###" << std::endl;
-//    std::cout << "Number of SNPs:" << no_snps << std::endl;
-//    std::cout << "Number of INDELs:" << no_indels << std::endl;
+    vector<int> snp_pos, indel_pos;
+    std::map<int, int> snpCounter,indelCounter;
+    for (int i = 0; i < vt_array.size(); i++)
+        if (vt_array[i].type=="snps") {
+            ++snpCounter[vt_array[i].pos];
+        } else if (vt_array[i].type=="indels") {
+            ++indelCounter[vt_array[i].pos];
+        }
 
-    //Cleanup
-//    file.close();
+    int multiallelic_snps=0;
+    int biallelic_snps=0;
+    // Iterate through all elements in std::map
+    std::map<int, int>::iterator it = snpCounter.begin();
+    while(it != snpCounter.end())
+    {
+        if (it->second>1) {
+            multiallelic_snps++;
+        } else {
+            biallelic_snps++;
+        }
+        it++;
+    }
+    int multiallelic_indels=0;
+    int biallelic_indels=0;
+    std::map<int, int>::iterator it1 = indelCounter.begin();
+    while(it1 != indelCounter.end())
+    {
+        if (it1->second>1) {
+            multiallelic_indels++;
+        } else {
+            biallelic_indels++;
+        }
+        it1++;
+    }
+
+    // Print report
+    std::cout << "##Stats###" << std::endl;
+    std::cout << "Number of multiallelic SNPs:" <<  multiallelic_snps << std::endl;
+    std::cout << "Number of biallelic SNPs:" <<  biallelic_snps << std::endl;
+    std::cout << "Number of multiallelic INDELs:" << multiallelic_indels << std::endl;
+    std::cout << "Number of biallelic INDELs:" << biallelic_indels << std::endl;
 }
