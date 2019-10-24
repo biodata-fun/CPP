@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/VCFReader.h
+vector
+-
+
+/Users/ernesto/lib/CPP/VCFParser/src/main.cpp
+iostream
+-
+VCFReader.h
+-
+
