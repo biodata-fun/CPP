@@ -3,10 +3,13 @@
 
 using namespace std;
 
-int main() {
-    std::cout << "hello" << std::endl;
-    std::string example="/Users/ernesto/lib/ggvp_bam.bcftools.20190731.chr20_10e6_15e6.HG02570.vcf.gz";
-    VCFReader f(example);
+int main(int argc, char** argv) {
+    if (argc < 2) {
+        std::cerr << "Error! Usage: " << argv[0] << " <VCF PATH>" << std::endl;
+        return 1;
+    }
+    std::string vcfpath=argv[1];
+    VCFReader f(vcfpath);
     f.stats();
     return 0;
 }

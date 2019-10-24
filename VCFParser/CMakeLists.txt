@@ -11,8 +11,8 @@ find_package(Boost REQUIRED COMPONENTS iostreams)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    add_executable(app_demo src/main.cpp)
-    target_link_libraries(app_demo ${Boost_LIBRARIES})
+    add_executable(vcfp src/main.cpp)
+    target_link_libraries(vcfp ${Boost_LIBRARIES})
 endif()
 
 add_library(vcfparser
@@ -25,4 +25,4 @@ target_include_directories(
         "include"
 )
 
-target_link_libraries(app_demo vcfparser)
+target_link_libraries(vcfp vcfparser)

@@ -1,4 +1,0 @@
-/Users/ernesto/lib/CPP/VCFParser/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/ernesto/lib/CPP/VCFParser/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/ernesto/lib/CPP/VCFParser/cmake-build-debug/CMakeFiles/vcfparser.dir
-/Users/ernesto/lib/CPP/VCFParser/cmake-build-debug/CMakeFiles/app_demo.dir

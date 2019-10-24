@@ -1,1 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/c++  -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/VCFReader.dir/main.cpp.o  -o VCFReader /usr/local/lib/libboost_iostreams.dylib 
