@@ -3,7 +3,7 @@
 .idea/
 
 # Cmake files
- *cmake-build-debug*/
+**/cmake-build-debug
 
 
 
