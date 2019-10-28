@@ -102,6 +102,9 @@ void VCFReader::stats()
             }
         }
     }
+
+    file.close();
+
     // Print report
     std::cout << "##Stats###" << std::endl;
     std::cout << "Number of multiallelic SNPs:" <<  multiallelic_snps << std::endl;
