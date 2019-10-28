@@ -46,7 +46,10 @@ void VCFReader::stats()
     //Iterate lines
     std::string line;
 
-    int multiallelic_snps,biallelic_snps,multiallelic_indels,biallelic_indels=0;
+    int multiallelic_snps=0;
+    int biallelic_snps=0;
+    int multiallelic_indels=0;
+    int biallelic_indels=0;
 
     while (std::getline(instream, line)) {
         std::string toMatch = "#";
