@@ -9,15 +9,6 @@
 
 using namespace std;
 
-struct Variant
-{
-    basic_string<char> chr;
-    int pos;
-    std::string ref;
-    std::string alt;
-    std::string type;
-};
-
 class VCFReader
 {
     public:
@@ -27,8 +18,6 @@ class VCFReader
     ~VCFReader();
     private:
         string path;
-        vector<struct Variant> get_variants();
-        vector<struct Variant> vt_array;
 };
 
 #endif //VCFPARSER_VCFREADER_H

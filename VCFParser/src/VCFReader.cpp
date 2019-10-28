@@ -8,26 +8,25 @@
 #include <boost/algorithm/string.hpp>
 #include <VCFReader.h>
 #include <regex>
-#include <map>
+#include<set>
 
 using namespace std;
 
 VCFReader::VCFReader(string apath)
 {
     path = apath;
-    vt_array=get_variants();
-    std::cout<<"hello" <<std::endl;
 }
 
 VCFReader::~VCFReader()
 {
 
 }
+
 /*
- * This private function will parse the VCF and will
- * return a Vector of Structs of type Variant
+ * Function to get a set of stats from VCF
  */
-vector<Variant> VCFReader::get_variants() {
+void VCFReader::stats()
+{
     //Read from the first command line argument, assume it's gzipped
     std::ifstream file(path, std::ios_base::in | std::ios_base::binary);
     if (!file) {
@@ -36,7 +35,8 @@ vector<Variant> VCFReader::get_variants() {
         exit(1);
     }
 
-    vector<Variant> vt_array;
+    // this sets will keep record of all SNP and INDEL pos
+    std::set<int> snpPos, indelPos;
 
     boost::iostreams::filtering_streambuf<boost::iostreams::input> inbuf;
     inbuf.push(boost::iostreams::gzip_decompressor());
@@ -45,6 +45,9 @@ vector<Variant> VCFReader::get_variants() {
     std::istream instream(&inbuf);
     //Iterate lines
     std::string line;
+
+    int multiallelic_snps,biallelic_snps,multiallelic_indels,biallelic_indels=0;
+
     while (std::getline(instream, line)) {
         std::string toMatch = "#";
         bool result = boost::algorithm::starts_with(line, toMatch);
@@ -63,72 +66,42 @@ vector<Variant> VCFReader::get_variants() {
             std::string alt = strs[4];
 
             // Check if there is more than 1 comma-separated allele.
-
             regex b(".*,.*");
 
             vector<string> altAlls;
             // regex_match function matches string a against regex b
-            if ( regex_match(alt, b) )
-                boost::split(altAlls,alt,boost::is_any_of(","));
+            if (regex_match(alt, b))
+                boost::split(altAlls, alt, boost::is_any_of(","));
             else {
                 altAlls.push_back(alt);
             }
 
+            // iterate over each of the splitted alleles
             for (size_t i = 0; i < altAlls.size(); i++) {
-                std::string type;
                 if (altAlls[i].length() != ref.length()) {
-                    type = "indels";
+                    // indels
+                    const bool is_in = indelPos.find(pos) != indelPos.end();
+                    if (is_in == true) {
+                        multiallelic_indels++;
+                        biallelic_indels--;
+                    } else {
+                        indelPos.insert(pos);
+                        biallelic_indels++;
+                    }
                 } else {
-                    type = "snps";
+                    // snps
+                    const bool is_in = snpPos.find(pos) != snpPos.end();
+                    if (is_in == true) {
+                        multiallelic_snps++;
+                        biallelic_snps--;
+                    } else {
+                        snpPos.insert(pos);
+                        biallelic_snps++;
+                    }
                 }
-                Variant vt = {strs[0], pos, ref, altAlls[i], type};
-                vt_array.push_back(vt);
             }
         }
     }
-    return vt_array;
-}
-
-/*
- * Function to get a set of stats from VCF
- */
-void VCFReader::stats()
-{
-    vector<int> snp_pos, indel_pos;
-    std::map<int, int> snpCounter,indelCounter;
-    for (int i = 0; i < vt_array.size(); i++)
-        if (vt_array[i].type=="snps") {
-            ++snpCounter[vt_array[i].pos];
-        } else if (vt_array[i].type=="indels") {
-            ++indelCounter[vt_array[i].pos];
-        }
-
-    int multiallelic_snps=0;
-    int biallelic_snps=0;
-    // Iterate through all elements in std::map
-    std::map<int, int>::iterator it = snpCounter.begin();
-    while(it != snpCounter.end())
-    {
-        if (it->second>1) {
-            multiallelic_snps++;
-        } else {
-            biallelic_snps++;
-        }
-        it++;
-    }
-    int multiallelic_indels=0;
-    int biallelic_indels=0;
-    std::map<int, int>::iterator it1 = indelCounter.begin();
-    while(it1 != indelCounter.end())
-    {
-        if (it1->second>1) {
-            multiallelic_indels++;
-        } else {
-            biallelic_indels++;
-        }
-        it1++;
-    }
-
     // Print report
     std::cout << "##Stats###" << std::endl;
     std::cout << "Number of multiallelic SNPs:" <<  multiallelic_snps << std::endl;
