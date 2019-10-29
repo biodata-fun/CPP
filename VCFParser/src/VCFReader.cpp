@@ -58,50 +58,49 @@ void VCFReader::stats()
             //skip header
             continue;
         } else {
-            vector<string> strs;
-            boost::split(strs, line, boost::is_any_of("\t"));
-            std::string pos_st = strs[1];
-            // casting str to int
-            stringstream geek(pos_st);
-            int pos = 0;
-            geek >> pos;
-            std::string ref = strs[3];
-            std::string alt = strs[4];
-
+            std::string chr,pos_st,filter,ref,alt;
             // Check if there is more than 1 comma-separated allele.
             regex b(".*,.*");
+            if (instream >> chr >> pos_st >> filter >> ref >> alt) {
+                // casting str to int
+                stringstream geek(pos_st);
+                int pos = 0;
+                geek >> pos;
+                vector<string> altAlls;
+                // regex_match function matches string a against regex b
+                if (regex_match(alt, b))
+                    boost::split(altAlls, alt, boost::is_any_of(","));
+                else {
+                    altAlls.push_back(alt);
+                }
 
-            vector<string> altAlls;
-            // regex_match function matches string a against regex b
-            if (regex_match(alt, b))
-                boost::split(altAlls, alt, boost::is_any_of(","));
-            else {
-                altAlls.push_back(alt);
-            }
-
-            // iterate over each of the splitted alleles
-            for (size_t i = 0; i < altAlls.size(); i++) {
-                if (altAlls[i].length() != ref.length()) {
-                    // indels
-                    const bool is_in = indelPos.find(pos) != indelPos.end();
-                    if (is_in == true) {
-                        multiallelic_indels++;
-                        biallelic_indels--;
+                // iterate over each of the splitted alleles
+                for (size_t i = 0; i < altAlls.size(); i++) {
+                    if (altAlls[i].length() != ref.length()) {
+                        // indels
+                        const bool is_in = indelPos.find(pos) != indelPos.end();
+                        if (is_in == true) {
+                            multiallelic_indels++;
+                            biallelic_indels--;
+                        } else {
+                            indelPos.insert(pos);
+                            biallelic_indels++;
+                        }
                     } else {
-                        indelPos.insert(pos);
-                        biallelic_indels++;
-                    }
-                } else {
-                    // snps
-                    const bool is_in = snpPos.find(pos) != snpPos.end();
-                    if (is_in == true) {
-                        multiallelic_snps++;
-                        biallelic_snps--;
-                    } else {
-                        snpPos.insert(pos);
-                        biallelic_snps++;
+                        // snps
+                        const bool is_in = snpPos.find(pos) != snpPos.end();
+                        if (is_in == true) {
+                            multiallelic_snps++;
+                            biallelic_snps--;
+                        } else {
+                            snpPos.insert(pos);
+                            biallelic_snps++;
+                        }
                     }
                 }
+            }
+            else {
+                std::cout << "This line didn't meet the expected format." << std::endl;
             }
         }
     }
