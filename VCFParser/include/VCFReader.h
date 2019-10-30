@@ -14,8 +14,14 @@ class VCFReader
     public:
         // Class member function initialization
         void stats();
+        void setPath(string apath);
+
+        // Constructors
+        VCFReader()=default;
         VCFReader(string apath);
-    ~VCFReader();
+        // Destructor
+        ~VCFReader();
+
     private:
         string path;
 };

@@ -19,7 +19,11 @@ VCFReader::VCFReader(string apath)
 
 VCFReader::~VCFReader()
 {
+}
 
+void VCFReader::setPath(string apath)
+{
+    path = apath;
 }
 
 /*
