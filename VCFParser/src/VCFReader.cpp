@@ -118,3 +118,30 @@ void VCFReader::stats()
     std::cout << "Number of multiallelic INDELs:" << multiallelic_indels << std::endl;
     std::cout << "Number of biallelic INDELs:" << biallelic_indels << std::endl;
 }
+
+/*
+ * Function to add 'chr' to chromosome names
+ *
+ * Parameters
+ * ----------
+ * ofile: string
+ *        Output file name
+ */
+void VCFReader::addChr(string ofile)
+{
+    //Read from the first command line argument, assume it's gzipped
+    std::ifstream file(path, std::ios_base::in | std::ios_base::binary);
+    if (!file) {
+        // Print an error and exit
+        cerr << "Uh oh, *.gz file could not be opened for reading!" << endl;
+        exit(1);
+    }
+
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> inbuf;
+    inbuf.push(boost::iostreams::gzip_decompressor());
+    inbuf.push(file);
+    //Convert streambuf to istream
+    std::istream instream(&inbuf);
+    //Iterate lines
+    std::string line;
+}

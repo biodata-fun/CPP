@@ -9,7 +9,9 @@ void printSummary(char** argv) {
          << endl
          << "options:" << endl
          << "    -s, --stats     Calculate basic stats on the VCF." << endl
+         << "    -a  --add_chr  Add chr to chromosome names." <<endl
          << "    -f, --file     VCF file to analyse." << endl
+         << "    -o  --out      File for output." << endl
          << "    -h, --help     Print this summary." << endl
          << endl
          << "Perform operations on a certain VCF." << endl;
@@ -19,6 +21,7 @@ void printSummary(char** argv) {
 int main(int argc, char** argv) {
 
     std::string ifile;
+    std::string ofile;
     VCFReader f;
 
     int c;
@@ -31,6 +34,7 @@ int main(int argc, char** argv) {
                         {"help", no_argument, 0, 'h'},
                         {"file", required_argument, 0, 'f'},
                         {"stats", no_argument, 0, 's'},
+                        {"out", required_argument, 0, 'o'},
                         {0, 0, 0, 0}
                 };
         /* getopt_long stores the option index here. */
@@ -61,6 +65,17 @@ int main(int argc, char** argv) {
                 f.stats();
                 break;
 
+            case 'o':
+                ofile=optarg;
+
+            case 'a':
+                if(ifile.empty()) {
+                    std::cerr << "I need a VCF file!" << std::endl;
+                    return 1;
+                } else if(ofile.empty()){
+                    std::cerr << "I need an output VCF file name!" << std::endl;
+                    return 1;
+                }
             case '?':
                 printSummary(argv);
                 exit(1);

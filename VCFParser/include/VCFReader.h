@@ -15,6 +15,7 @@ class VCFReader
         // Class member function initialization
         void stats();
         void setPath(string apath);
+        void addChr(string ofile);
 
         // Constructors
         VCFReader()=default;
