@@ -22,6 +22,8 @@ int main(int argc, char** argv) {
 
     std::string ifile;
     std::string ofile;
+    bool runStats=false;
+    bool runAddchr=false;
     VCFReader f;
 
     int c;
@@ -34,6 +36,7 @@ int main(int argc, char** argv) {
                         {"help", no_argument, 0, 'h'},
                         {"file", required_argument, 0, 'f'},
                         {"stats", no_argument, 0, 's'},
+                        {"add_chr", no_argument, 0, 'a'},
                         {"out", required_argument, 0, 'o'},
                         {0, 0, 0, 0}
                 };
@@ -56,26 +59,20 @@ int main(int argc, char** argv) {
             case 'f':
                 ifile=optarg;
                 f.setPath(ifile);
+                break;
 
             case 's':
-                if(ifile.empty()) {
-                    std::cerr << "I need a VCF file!" << std::endl;
-                    return 1;
-                }
-                f.stats();
+                runStats=true;
                 break;
 
             case 'o':
                 ofile=optarg;
+                break;
 
             case 'a':
-                if(ifile.empty()) {
-                    std::cerr << "I need a VCF file!" << std::endl;
-                    return 1;
-                } else if(ofile.empty()){
-                    std::cerr << "I need an output VCF file name!" << std::endl;
-                    return 1;
-                }
+                runAddchr=true;
+                break;
+
             case '?':
                 printSummary(argv);
                 exit(1);
@@ -84,6 +81,26 @@ int main(int argc, char** argv) {
             default:
                 abort ();
         }
+    }
+
+    //check that all required arguments conditions are satisfied
+    if (runStats==true) {
+        if (ifile.empty()) {
+            std::cerr << "I need a VCF file!" << std::endl;
+            return 1;
+        }
+        f.stats();
+    }
+
+    if (runAddchr==true) {
+        if (ifile.empty()) {
+            std::cerr << "I need a VCF file!" << std::endl;
+            return 1;
+        } else if (ofile.empty()) {
+            std::cerr << "I need an output VCF file name!" << std::endl;
+            return 1;
+        }
+        f.addChr(ofile);
     }
 
     return 0;

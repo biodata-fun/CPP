@@ -5,6 +5,7 @@
 #include <iostream>
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
+#include <boost/iostreams/copy.hpp>
 #include <boost/algorithm/string.hpp>
 #include <VCFReader.h>
 #include <regex>
@@ -131,6 +132,7 @@ void VCFReader::addChr(string ofile)
 {
     //Read from the first command line argument, assume it's gzipped
     std::ifstream file(path, std::ios_base::in | std::ios_base::binary);
+    std::ofstream outStream(ofile, std::ios_base::out);
     if (!file) {
         // Print an error and exit
         cerr << "Uh oh, *.gz file could not be opened for reading!" << endl;
@@ -144,4 +146,15 @@ void VCFReader::addChr(string ofile)
     std::istream instream(&inbuf);
     //Iterate lines
     std::string line;
+
+    while (std::getline(instream, line)) {
+        std::string toMatch = "#";
+        bool result = boost::algorithm::starts_with(line, toMatch);
+        if (result == true) {
+            //skip header
+            continue;
+        } else {
+
+        }
+    }
 }
