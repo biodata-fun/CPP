@@ -8,8 +8,10 @@
 #include <boost/iostreams/copy.hpp>
 #include <boost/algorithm/string.hpp>
 #include <VCFReader.h>
+#include <fstream>
 #include <regex>
-#include<set>
+#include <set>
+#include <gzip.h>
 
 using namespace std;
 
@@ -144,6 +146,11 @@ void VCFReader::addChr(string ofile)
     inbuf.push(file);
     //Convert streambuf to istream
     std::istream instream(&inbuf);
+
+    std::ofstream outfile (ofile);
+
+    Gzip c;
+
     //Iterate lines
     std::string line;
 
@@ -151,10 +158,13 @@ void VCFReader::addChr(string ofile)
         std::string toMatch = "#";
         bool result = boost::algorithm::starts_with(line, toMatch);
         if (result == true) {
-            //skip header
+            // compress line
+            std::string comp_data=c.compress(line);
+            //write to out file
+            outfile<< comp_data;
             continue;
         } else {
-
+            continue;
         }
     }
 }

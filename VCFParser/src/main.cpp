@@ -20,6 +20,7 @@ void printSummary(char** argv) {
 
 int main(int argc, char** argv) {
 
+    std::cout <<"hello";
     std::string ifile;
     std::string ofile;
     bool runStats=false;
@@ -48,7 +49,10 @@ int main(int argc, char** argv) {
 
         // if user does not provide option than c will be -1
         if (c == -1)
+        {
+            printSummary(argv);
             break;
+        }
 
         switch (c) {
 
