@@ -16,6 +16,7 @@ class VCFReader
         void stats();
         void setPath(string apath);
         void addChr(string ofile);
+        void removeChr(string ofile);
 
         // Constructors
         VCFReader()=default;

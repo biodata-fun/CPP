@@ -130,7 +130,59 @@ void VCFReader::stats()
  * ofile: string
  *        Output file name
  */
-void VCFReader::addChr(string ofile)
+void VCFReader::addChr(string ofile) {
+    //Read from the first command line argument, assume it's gzipped
+    std::ifstream file(path, std::ios_base::in | std::ios_base::binary);
+    std::ofstream outStream(ofile, std::ios_base::out);
+    if (!file) {
+        // Print an error and exit
+        cerr << "Uh oh, *.gz file could not be opened for reading!" << endl;
+        exit(1);
+    }
+
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> inbuf;
+    inbuf.push(boost::iostreams::gzip_decompressor());
+    inbuf.push(file);
+    //Convert streambuf to istream
+    std::istream instream(&inbuf);
+
+    std::ofstream outfile (ofile);
+
+    Gzip c;
+
+    //Iterate lines
+    std::string line;
+
+    while (std::getline(instream, line)) {
+        std::string toMatch = "#";
+        bool result = boost::algorithm::starts_with(line, toMatch);
+        if (result == true) {
+            // compress line
+            std::string comp_data=c.compress(line+"\n");
+            //write to out file
+            outfile<< comp_data;
+            continue;
+        } else {
+            // add chr
+            line="chr"+line;
+            // compress line
+            std::string comp_data=c.compress(line+"\n");
+            outfile<< comp_data;
+            continue;
+        }
+    }
+}
+
+
+/*
+ * Function to remove 'chr' from chromosome names
+ *
+ * Parameters
+ * ----------
+ * ofile: string
+ *        Output file name
+ */
+void VCFReader::removeChr(string ofile)
 {
     //Read from the first command line argument, assume it's gzipped
     std::ifstream file(path, std::ios_base::in | std::ios_base::binary);
@@ -159,11 +211,16 @@ void VCFReader::addChr(string ofile)
         bool result = boost::algorithm::starts_with(line, toMatch);
         if (result == true) {
             // compress line
-            std::string comp_data=c.compress(line);
+            std::string comp_data=c.compress(line+"\n");
             //write to out file
             outfile<< comp_data;
             continue;
         } else {
+            // remove chr
+            line.replace(0,3,"");
+            // compress line
+            std::string comp_data=c.compress(line+"\n");
+            outfile<< comp_data;
             continue;
         }
     }

@@ -9,7 +9,8 @@ void printSummary(char** argv) {
          << endl
          << "options:" << endl
          << "    -s, --stats     Calculate basic stats on the VCF." << endl
-         << "    -a  --add_chr  Add chr to chromosome names." <<endl
+         << "    -a, --add_chr     Add 'chr' to chromosome names." << endl
+         << "    -r  --remove_chr  Remove 'chr' from chromosome names." <<endl
          << "    -f, --file     VCF file to analyse." << endl
          << "    -o  --out      File for output." << endl
          << "    -h, --help     Print this summary." << endl
@@ -20,11 +21,11 @@ void printSummary(char** argv) {
 
 int main(int argc, char** argv) {
 
-    std::cout <<"hello";
     std::string ifile;
     std::string ofile;
     bool runStats=false;
-    bool runAddchr=false;
+    bool runaddchr=false;
+    bool runremovechr=false;
     VCFReader f;
 
     int c;
@@ -38,6 +39,7 @@ int main(int argc, char** argv) {
                         {"file", required_argument, 0, 'f'},
                         {"stats", no_argument, 0, 's'},
                         {"add_chr", no_argument, 0, 'a'},
+                        {"remove_chr", no_argument, 0, 'r'},
                         {"out", required_argument, 0, 'o'},
                         {0, 0, 0, 0}
                 };
@@ -50,7 +52,6 @@ int main(int argc, char** argv) {
         // if user does not provide option than c will be -1
         if (c == -1)
         {
-            printSummary(argv);
             break;
         }
 
@@ -74,7 +75,11 @@ int main(int argc, char** argv) {
                 break;
 
             case 'a':
-                runAddchr=true;
+                runaddchr=true;
+                break;
+
+            case 'r':
+                runremovechr=true;
                 break;
 
             case '?':
@@ -96,7 +101,18 @@ int main(int argc, char** argv) {
         f.stats();
     }
 
-    if (runAddchr==true) {
+    if (runremovechr==true) {
+        if (ifile.empty()) {
+            std::cerr << "I need a VCF file!" << std::endl;
+            return 1;
+        } else if (ofile.empty()) {
+            std::cerr << "I need an output VCF file name!" << std::endl;
+            return 1;
+        }
+        f.removeChr(ofile);
+    }
+
+    if (runaddchr==true) {
         if (ifile.empty()) {
             std::cerr << "I need a VCF file!" << std::endl;
             return 1;
