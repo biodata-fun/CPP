@@ -1,6 +1,6 @@
 /**
 Snippet for reading from a file: 
-USAGE : g++ read_from_textfile.cpp -o read_from_textfile
+USAGE : g++ -g read_from_text.cpp -o read_from_text
 **/
 
 #include <iostream>

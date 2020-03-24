@@ -15,12 +15,12 @@ WORKDIR tmp/
 
 #install HTSlib
 RUN git clone --branch 1.9 https://github.com/samtools/htslib.git
-#RUN autoheader
-#RUN autoconf
-#RUN ./configure
-#RUN make
-#RUN make install
+WORKDIR htslib
+RUN autoheader
+RUN autoconf
+RUN ./configure
+RUN make
+RUN make install
 
-
-#WORKDIR "/app"
+WORKDIR "/app"
 

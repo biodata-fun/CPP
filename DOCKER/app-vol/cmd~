@@ -1,0 +1,5 @@
+xport LD_LIBRARY_PATH=/nfs/production/reseq-info/work/bin/samtools-1.9/htslib-1.9/:${LD_LIBRARY_PATH}
+
+gcc -std=c99 -Wall -I/nfs/production/reseq-info/work/bin/samtools-1.9/htslib-1.9/ -L/nfs/production/reseq-info/work/bin/samtools-1.9/htslib-1.9/ -lhts main.c -o main
+
+./main /hps/nobackup/production/reseq-info/ernesto/HIGHCOV/converted/converted_bam/HG01892.final.cram.bam chr1 1000
