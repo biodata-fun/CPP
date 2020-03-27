@@ -10,7 +10,7 @@ using namespace std;
 
 int main () {
   string line;
-  ifstream myfile ("in.csv");
+  ifstream myfile ("./DATA/in.csv");
   if (myfile.is_open())
     {
       while ( getline (myfile,line) )

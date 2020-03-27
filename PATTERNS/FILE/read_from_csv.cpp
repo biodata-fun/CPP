@@ -1,13 +1,21 @@
+#include <iostream>
+#include <sstream>
+#include <fstream>
 #include <string>
 #include <vector>
-#include <sstream>
-#include <iostream>
-
 using namespace std;
+/*
+Script to read-in a .csv file
+
+USAGE: g++ -Wall read_from_csv.cpp -o read_from_csv
+*/
+
+
 
 /*
 std::string split implementation by using delimiter as a character.
 */
+
 std::vector<std::string> split(std::string strToSplit, char delimeter)
 {
 	std::stringstream ss(strToSplit);
@@ -19,6 +27,7 @@ std::vector<std::string> split(std::string strToSplit, char delimeter)
 	}
 	return splittedStrings;
 }
+
 
 int main()
 {
@@ -39,4 +48,6 @@ int main()
           myfile.close();
     }
     else std::cout << "Unable to open file";
+    
+   return 0;
 }
