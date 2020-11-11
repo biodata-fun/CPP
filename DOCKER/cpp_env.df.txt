@@ -7,20 +7,9 @@ LABEL description="Dockerfile used in my C/CPP projects"
 ENTRYPOINT /bin/bash
 
 RUN apt-get update \
-    && apt-get -y --no-install-recommends -qq install gcc git ca-certificates \
+    && apt-get -y --no-install-recommends -qq install gcc gdb git ca-certificates \
     build-essential autoconf zlib1g-dev libbz2-dev liblzma-dev libhts-dev \
     && apt-get clean
-
-WORKDIR tmp/
-
-#install HTSlib
-RUN git clone --branch 1.9 https://github.com/samtools/htslib.git
-WORKDIR htslib
-RUN autoheader
-RUN autoconf
-RUN ./configure
-RUN make
-RUN make install
 
 WORKDIR "/app"
 

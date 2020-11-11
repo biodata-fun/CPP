@@ -1,3 +1,3 @@
 docker build - -t cpp_env < cpp_env.df.txt
 
-docker run --rm -it --name=cpp_env -v $PWD/app-vol:/app cpp_env
+docker run --rm -it --name=cpp_env -v ${MOUNT_PT}/app-vol:/app cpp_env
