@@ -1,3 +1,4 @@
 docker build - -t cpp_env < cpp_env.df.txt
 
-docker run --rm -it --name=cpp_env -v ${MOUNT_PT}/app-vol:/app cpp_env
+# --cap-add=SYS_PTRACE --security-opt seccomp=unconfined . This is necessary for having a gdb running in Docker
+docker run --rm -it --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --name=cpp_env -v ${MOUNT_PATH}/app-vol:/app cpp_env

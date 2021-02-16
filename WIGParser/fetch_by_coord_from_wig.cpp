@@ -107,6 +107,8 @@ int main(int argc, char *argv[])
     if(argc!=4) 
     { 
         std::cout<< "\nUSAGE: fetch_by_coord <in_file.wig> <coords.csv> <outfile.csv>\n"<<endl;
+        exit(0); 
+
     }
     // Creation of ofstream class object 
     ofstream fout;

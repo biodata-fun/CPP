@@ -11,5 +11,8 @@ RUN apt-get update \
     build-essential autoconf zlib1g-dev libbz2-dev liblzma-dev libhts-dev \
     && apt-get clean
 
+WORKDIR "/lib"
+RUN git clone https://github.com/arq5x/bedtools2.git && git clone https://github.com/samtools/htslib.git
+WORKDIR htslib/
+RUN autoheader && autoconf && ./configure && make && make install
 WORKDIR "/app"
-
