@@ -1,1 +1,0 @@
-g++ -g -I /Users/ernesto/lib/CPP/FastaProject/include/ main.cpp FastaFile.cpp -o out

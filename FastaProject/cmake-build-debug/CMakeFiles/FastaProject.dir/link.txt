@@ -1,1 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/c++  -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/FastaProject.dir/src/Fasta.cpp.o CMakeFiles/FastaProject.dir/src/FastaFile.cpp.o CMakeFiles/FastaProject.dir/src/main.cpp.o  -o FastaProject 

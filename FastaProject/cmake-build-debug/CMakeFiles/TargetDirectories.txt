@@ -1,3 +1,0 @@
-/Users/ernesto/lib/CPP/FastaProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/ernesto/lib/CPP/FastaProject/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/ernesto/lib/CPP/FastaProject/cmake-build-debug/CMakeFiles/FastaProject.dir
